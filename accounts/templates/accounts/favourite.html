@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'accounts/css/dashbord.css' %}">
+{% endblock css %}
+{% block title%} {% endblock title%} 
+
+{% block body%}
+   <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-2">
+                <div class="side-menu">
+                    <div class="image-container">
+                        <a href="{% url 'accounts:profile' %}">
+                        <img src="{{user.profile.profile_image_url}}"  alt="" >
+                        </a>
+                    </div>
+                    <h4>&nbsp;{{profile.user.username}}</h4>
+                    <hr>
+                    <a href="{% url 'accounts:update' %}"><i class="fa fa-edit" style="font-size:24px"></i>&nbsp;Update</a>
+                    <a href="{% url 'accounts:change' %}"><i class="fa fa-key" style="font-size:20px"></i>&nbsp;Change Password</a>
+                    <a href="{% url 'accounts:history' %}"><i class="fa fa-history" style="font-size:24px"></i>&nbsp;history</a>
+                    <a href="{% url 'accounts:favourite' %}"><i class="fa fa-heart" style="font-size:24px"></i>&nbsp;favourite</a>
+                 </div>
+            </div>
+
+           <div class="col-8">
+               <div class="profile" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); margin: 20px; padding: 30px;">
+                    {% for i in product %}
+                        {% if i.favourite %}
+                            <div class="row mb-4">
+                                <div class="col-md-5 col-lg-3 col-xl-3">
+                                <div class="view zoom overlay z-depth-1 rounded mb-3 mb-md-0">
+                                    <a href="{% url 'home:detail' i.id %}">
+                                    <img class="img-fluid w-50"
+                                    src="{{ i.image_url }}" alt="Sample" style="width: 80px;height: 70px;">
+                                    </a>
+                                </div>
+                                </div>
+        
+                                <div class="col-md-7 col-lg-9 col-xl-9" style="background: rgb(250, 249, 248);">    
+                                    <div class="d-flex justify-content-between">
+                                        
+                                        <h5>{{ i.name }}</h5>                                       
+                                        <p class="mb-2 text-muted text-uppercase small">Color: {{ i.variant.color_variant.name }}</p>
+                                        <p class="mb-3 text-muted text-uppercase small">Size: {{ i.variant.size_variant.name }}</p>
+                                        <p class="mb-3 text-muted text-uppercase small">Price: {{ i.unit_price }}</p>
+                                        <a href="{% url 'home:favourite_remove' i.id %}" type="button" class="card-link-secondary small text-uppercase mr-3"><i
+                                            class="fas fa-trash-alt mr-1"></i> Remove item </a>
+                                        
+                                    </div>                                    
+                                </div>
+
+                            </div>
+                            <hr>                   
+                            <!-- <a href="{% url 'home:detail' i.id %}"><img src="{{i.image.url}}" style="width: 100px;height: 100px;" alt="">{{ i.name }}</a> -->
+                        {% else %}
+                        
+                            <img src='../media/profile/likes-folder(1).png'>
+                            <p>not favourite exist</p>
+                        
+                        {% endif %}
+                    {% endfor %}
+            </div>
+        </div>
+   </div>
+</div>
+
+           
+{% endblock body%}
+

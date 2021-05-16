@@ -1,0 +1,224 @@
+
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/nav.css' %}">
+{% endblock css %}
+<!--Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-dark" style="height: 100px;" >
+    <div class="collapse navbar-collapse" id="navbarSupportedContent-555">
+      <ul class="navbar-nav mr-auto">
+
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'home:home' %}">
+            <img src="/media/logo/logo.jpg" class="rounded-circle z-depth-0"
+              alt="" style="width: 60px;height:60px"> 
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+        
+         <!-- <li class="nav-item">
+          <a class="nav-link" href="{% url 'home:product' %}">Products</a>
+         </li>
+
+        <!-- this section for nested dropdown if we want show on navbar -->
+        <!-- <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-55" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: cornsilk;">
+              Category
+          </a>
+          <div class="dropdown-menu dropdown-secondary" aria-labelledby="navbarDropdownMenuLink-555">
+            <ul>
+              {% for cat in category %}
+                <li>
+                  <a class="dropdown-item" href="{{cat.get_absolute_url}}">{{cat.name}}</a>
+                  <div class="dropdown-menu">
+                    <ul>
+                      {% for info in cat.sub.all %}
+                        <li>
+                          <a class="dropdown-item hover:blue" href="{{info.get_absolute_url}}">{{info.name}}</a>
+                        </li> 
+                      {% endfor %}
+                    </ul>
+                  </div>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </li> -->
+      </ul>
+    </div>
+
+    <div class="container" style="justify-content: center;" >
+      <form class="form-inline float-sm-right" action="{% url 'home:product' %}">
+        {% csrf_token %}
+        <input class="form-control" style="width: 500px; height: 60px; border-radius: 7px;" type="search" placeholder="&#128269;&nbsp; search..." name="search">
+        <input type="submit" style="visibility: hidden; position: absolute;" />
+          <!-- <i class="fas fa-search" style="color: rgb(12, 12, 12);"></i> -->        
+      </form>
+    </div>
+  
+    <ul class="navbar-nav ml-auto nav-flex-icons">
+      <li class="nav-item" >        
+        {% if user.is_authenticated %}
+          <a class="nav-link waves-effect waves-light" href="{% url 'cart:cart_detail' %}">             
+            <i class="fas fa-shopping-basket" style="font-size: 30px;color: blanchedalmond;" ><span class='badge badge-warning' id='lblCartCount' style="font-size: 20px;"> {{nums}} </span>
+            </i>
+          </a>
+        {% else %} 
+          <a class="nav-link waves-effect waves-light">
+            <i class="fas fa-shopping-basket" style="font-size: 30px;color: blanchedalmond;"></i>
+          </a>
+        {% endif %}
+      </li>
+          
+      <li class="nav-item avatar dropdown">
+        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-55" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false" style="color: cornsilk;">
+          {% if user.is_authenticated %}
+            <img src="{{user.profile.profile_image_url}}" class="rounded-circle z-depth-0"
+                alt="" style="width: 30px;height:30px">
+                {{user.username}}          
+          {% else %}
+            <img src="/media/profile/1.jpg" class="rounded-circle z-depth-0"
+                alt="" style="width: 30px;height:30px" style="color: cornsilk;">
+                dear user             
+          {% endif %}
+        </a>
+
+        <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
+              aria-labelledby="navbarDropdownMenuLink-55">
+          <ul class="p-0" aria-labelledby="new-mdb-technologies-dropdown">          
+            {% if user.is_authenticated %}
+              <li>
+                <a class="dropdown-item" href="{% url 'accounts:profile' %}">profile</a>
+              </li>
+              <a class="dropdown-item" href="{% url 'accounts:logout' %}">logout</a>
+            {% else %}
+              <a class="dropdown-item" href="{% url 'accounts:register' %}">Register</a>
+              <!-- <a class="dropdown-item" href="" data-toggle="modal" data-target="#modelslogin">log in </a> -->
+              <a class="dropdown-item" href="{% url 'accounts:login' %}" >log in </a>
+            {% endif %}
+          </ul>
+        </div>
+      </li>        
+    </ul>
+   
+
+  <!-- this section has for if we want use modals for login or register action -->
+  <!-- modals login -->
+  <!-- <div class="modal" tabindex="-1" role="dialog" id="modelslogin" >
+    <div class="modal-dialog" ;>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" style="padding-left: 10em;">login</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+          <form action="{% url 'accounts:login' %}" method="POST">
+            {% csrf_token%}
+            <div class="form-group">
+                <input type="text" name="user" class="form-control" placeholder="Your username *" value="" />
+            </div>
+            <div class="form-group">
+                <input type="password" name="password" class="form-control" placeholder="Your Password *" value="" />
+            </div>
+            <div class="form-group" style="padding-left: 10em;">
+              <input type="submit" class="btnSubmit"  value="Login" />
+            </div>
+            <div class="form-group">
+                <label for="default-remember">
+                <input type="checkbox" id="default-remember" /> Remember me</label>
+                <a href="" class="ForgetPwd" style="padding-left: 12em;" value="Login" data-dismiss="modal" data-toggle="modal" data-target="#modelsphone">&nbsp;Forget Password?</a>
+            </div>
+          </form>
+              -->
+  
+        <!-- </div> -->
+        <!-- <div class="modal-footer"> -->
+          <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+          <!-- <a href="{% url 'accounts:login' %}" class="btn btn-success">log in</a> -->
+        <!-- </div> -->
+      <!-- </div>
+    </div>
+  </div> -->
+
+  </nav>
+
+<style>
+ul {
+  list-style-type: none;
+}
+.modal{
+  padding: 5%;
+  box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+}
+.btnSubmit
+{
+    width: 50%;
+    border-radius: 1rem;
+    padding: 1.5%;
+    border: none;
+    cursor: pointer;
+}
+.form-group .btnSubmit{
+  font-weight: 600;
+  color: #fff;
+  background-color: #0062cc;
+}
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.dropdown-item {
+  text-decoration: none;
+  color: black;
+
+}
+.dropdown-item .hover {
+  text-decoration: underline;
+  color: #0062cc;
+
+}
+
+
+
+/* .dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 12px 16px;
+  z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+} */
+
+.badge {
+  padding-left: 9px;
+  padding-right: 9px;
+  -webkit-border-radius: 9px;
+  -moz-border-radius: 9px;
+  border-radius: 9px;
+}
+
+.label-warning[href],
+.badge-warning[href] {
+  background-color: #c67605;
+}
+#lblCartCount {
+    font-size: 12px;
+    background: #ff0000;
+    color: #fff;
+    padding: 0 5px;
+    vertical-align: top;
+    margin-left: -10px; 
+}
+</style>
+
+

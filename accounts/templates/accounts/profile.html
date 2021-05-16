@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" href="{% static 'accounts/css/dashbord.css'%}">
+{% endblock css %}
+{% block title%} {{ profile.user.username }} {% endblock title%} 
+
+{% block body%}
+<br>
+   <div class="container-fluid">
+       <div class="row">
+
+           <div class="col-2">
+               <div class="side-menu">
+                   <div class="image-container">
+                       <a href="{% url 'accounts:profile' %}">
+                       <img src="{{user.profile.profile_image_url}}"  alt="" >
+                       </a>
+                   </div>
+                   <h4>&nbsp;{{profile.user.username}}</h4>
+                   <hr>
+                   <a href="{% url 'accounts:update' %}"><i class="fa fa-edit" style="font-size:24px"></i>&nbsp;Update</a>
+                   <a href="{% url 'accounts:change' %}"><i class="fa fa-key" style="font-size:20px"></i>&nbsp;Change Password</a>
+                   <a href="{% url 'accounts:history' %}"><i class="fa fa-history" style="font-size:24px"></i>&nbsp;history</a>
+                   <a href="{% url 'accounts:favourite' %}"><i class="fa fa-heart" style="font-size:24px"></i>&nbsp;favourite</a>
+                </div>
+           </div>
+
+
+           <div class="col-10">
+            <br>
+            <h4>personal information</h4>
+            <div class="profile">
+                <table class="table table-bordered">
+                <tbody>
+
+                    <tr>                        
+                        <td>user :<br> {{profile.user.username}}</td>
+                        <td>email :<br> {{profile.user.email}}</td>
+                    </tr>
+
+                    <tr>                    
+                        <td>name :<br> {{profile.user.first_name}}</td> 
+                        <td>last_name :<br> {{profile.user.last_name}}</td>                     
+                    </tr>
+
+                    <tr>                    
+                        <td>phone :<br> {{profile.phone}}</td> 
+                        <td>address :<br> {{profile.address}}</td>                     
+                    </tr>
+
+                </tbody>
+                </table>
+
+                    <!-- <div class="card-body">    
+                        <h6 class="card-subtitle mb-2 text-muted">user :{{profile.user.username}}</h6>
+                        <h6 class="card-subtitle mb-2 text-muted">name :{{profile.user.first_name}}</h6>
+                        <h6 class="card-subtitle mb-2 text-muted">last_name :{{profile.user.last_name}}</h6>
+                        <h6 class="card-subtitle mb-2 text-muted">email :{{profile.user.email}}</h6>
+                        <h6 class="card-subtitle mb-2 text-muted">phone :{{profile.phone}}</h6>
+                        <h6 class="card-subtitle mb-2 text-muted">address :{{profile.address}}</h6>
+                    </div> -->
+            </div>
+            </div>
+
+        </div>
+    </div>
+   <br>
+   <br>
+           
+{% endblock body%}
+
+

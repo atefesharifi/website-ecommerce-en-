@@ -1,0 +1,405 @@
+.product-grid{font-family:Raleway,sans-serif;text-align:center;padding:0 0 72px;border:1px solid rgba(0,0,0,.1);overflow:hidden;position:relative;z-index:1}
+.product-grid .product-image{position:relative;transition:all .3s ease 0s}
+.product-grid .product-image a{display:block}
+.product-grid .product-image img{width:100%;height:auto}
+.product-grid .pic-1{opacity:1;transition:all .3s ease-out 0s}
+.product-grid:hover .pic-1{opacity:1}
+.product-grid .pic-2{opacity:0;position:absolute;top:0;left:0;transition:all .3s ease-out 0s}
+.product-grid:hover .pic-2{opacity:1}
+.product-grid .social{width:150px;padding:0;margin:0;list-style:none;opacity:0;transform:translateY(-50%) translateX(-50%);position:absolute;top:60%;left:50%;z-index:1;transition:all .3s ease 0s}
+.product-grid:hover .social{opacity:1;top:50%}
+.product-grid .social li{display:inline-block}
+.product-grid .social li a{color:#fff;background-color:#333;font-size:16px;line-height:40px;text-align:center;height:40px;width:40px;margin:0 2px;display:block;position:relative;transition:all .3s ease-in-out}
+.product-grid .social li a:hover{color:#fff;background-color:#ef5777}
+.product-grid .social li a:after,.product-grid .social li a:before{content:attr(data-tip);color:#fff;background-color:#000;font-size:12px;letter-spacing:1px;line-height:20px;padding:1px 5px;white-space:nowrap;opacity:0;transform:translateX(-50%);position:absolute;left:50%;top:-30px}
+.product-grid .social li a:after{content:'';height:15px;width:15px;border-radius:0;transform:translateX(-50%) rotate(45deg);top:-20px;z-index:-1}
+.product-grid .social li a:hover:after,.product-grid .social li a:hover:before{opacity:1}
+.product-grid .product-discount-label,.product-grid .product-new-label{color:#fff;background-color:#ef5777;font-size:12px;text-transform:uppercase;padding:2px 7px;display:block;position:absolute;top:10px;left:0}
+.product-grid .product-discount-label{background-color:#333;left:auto;right:0}
+.product-grid .rating{color:#FFD200;font-size:12px;padding:12px 0 0;margin:0;list-style:none;position:relative;z-index:-1}
+.product-grid .rating li.disable{color:rgba(0,0,0,.2)}
+.product-grid .product-content{background-color:#fff;text-align:center;padding:12px 0;margin:0 auto;position:absolute;left:0;right:0;bottom:-27px;z-index:1;transition:all .3s}
+.product-grid:hover .product-content{bottom:0}
+.product-grid .title{font-size:13px;font-weight:400;letter-spacing:.5px;text-transform:capitalize;margin:0 0 10px;transition:all .3s ease 0s}
+.product-grid .title a{color:#828282}
+.product-grid .title a:hover,.product-grid:hover .title a{color:#ef5777}
+.product-grid .price{color:#333;font-size:17px;font-family:Montserrat,sans-serif;font-weight:700;letter-spacing:.6px;margin-bottom:8px;text-align:center;transition:all .3s}
+.product-grid .price span{color:#999;font-size:13px;font-weight:400;text-decoration:line-through;margin-left:3px;display:inline-block}
+.product-grid .add-to-cart{color:#000;font-size:13px;font-weight:600}
+@media only screen and (max-width:990px){.product-grid{margin-bottom:30px}
+
+ul li{
+    list-style: none;
+}
+
+
+/* This line can be removed it was just for display on CodePen: */
+.container {
+  margin-top: 125px;
+}
+
+.slider-labels {
+  margin-top: 10px;
+}
+
+/* Functional styling;
+ * These styles are required for noUiSlider to function.
+ * You don't need to change these rules to apply your design.
+ */
+.noUi-target,.noUi-target * {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -ms-touch-action: none;
+  touch-action: none;
+  -ms-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.noUi-target {
+  position: relative;
+  direction: ltr;
+}
+
+.noUi-base {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 1;
+/* Fix 401 */
+}
+
+.noUi-origin {
+  position: absolute;
+  right: 0;
+  top: 0;
+  left: 0;
+  bottom: 0;
+}
+
+.noUi-handle {
+  position: relative;
+  z-index: 1;
+}
+
+.noUi-stacking .noUi-handle {
+/* This class is applied to the lower origin when
+   its values is > 50%. */
+  z-index: 10;
+}
+
+.noUi-state-tap .noUi-origin {
+  -webkit-transition: left 0.3s,top .3s;
+  transition: left 0.3s,top .3s;
+}
+
+.noUi-state-drag * {
+  cursor: inherit !important;
+}
+
+/* Painting and performance;
+ * Browsers can paint handles in their own layer.
+ */
+.noUi-base,.noUi-handle {
+  -webkit-transform: translate3d(0,0,0);
+  transform: translate3d(0,0,0);
+}
+
+/* Slider size and handle placement;
+ */
+.noUi-horizontal {
+  height: 4px;
+}
+
+.noUi-horizontal .noUi-handle {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  left: -7px;
+  top: -7px;
+  background-color: #345DBB;
+}
+
+/* Styling;
+ */
+.noUi-background {
+  background: #D6D7D9;
+}
+
+.noUi-connect {
+  background: #345DBB;
+  -webkit-transition: background 450ms;
+  transition: background 450ms;
+}
+
+.noUi-origin {
+  border-radius: 2px;
+}
+
+.noUi-target {
+  border-radius: 2px;
+}
+
+.noUi-target.noUi-connect {
+}
+
+/* Handles and cursors;
+ */
+.noUi-draggable {
+  cursor: w-resize;
+}
+
+.noUi-vertical .noUi-draggable {
+  cursor: n-resize;
+}
+
+.noUi-handle {
+  cursor: default;
+  -webkit-box-sizing: content-box !important;
+  -moz-box-sizing: content-box !important;
+  box-sizing: content-box !important;
+}
+
+.noUi-handle:active {
+  border: 8px solid #345DBB;
+  border: 8px solid rgba(53,93,187,0.38);
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  left: -14px;
+  top: -14px;
+}
+
+/* Disabled state;
+ */
+[disabled].noUi-connect,[disabled] .noUi-connect {
+  background: #B8B8B8;
+}
+
+[disabled].noUi-origin,[disabled] .noUi-handle {
+  cursor: not-allowed;
+}
+/**/
+.selector {
+  position: relative;
+  padding: 20px;
+  width: 400px;
+  color: #7e7e7e;
+}
+
+.selector ul {
+  position: relative;
+  display: block;
+  overflow: auto;
+  min-width: 138px;
+  max-height: 200px;
+  background: #fff;
+  list-style: none;
+  white-space: inherit;
+  padding-right: 17px;
+  width: calc(100% + 17px)
+}
+
+.selector li {
+  position: relative;
+  padding: 3px 20px 3px 25px;
+  cursor: pointer
+}
+
+.selector li:before {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  top: 4px;
+  display: inline-block;
+  margin-right: 9px;
+  width: 17px;
+  height: 17px;
+  background-color: #f4f4f4;
+  border: 1px solid #d5d5d5;
+  content: ""
+}
+
+.selector li[data-selected="1"]:before {
+  border: 1px solid #d7d7d7;
+  background-color: #fff
+}
+
+.selector li[data-selected="1"]:after {
+  position: absolute;
+  top: 50%;
+  left: 3px;
+  top: 11px;
+  display: inline-block;
+  width: 4px;
+  height: 10px;
+  border-right: 2px solid;
+  border-bottom: 2px solid;
+  background: none;
+  color: #39c9a9;
+  content: "";
+  -webkit-transform: rotate(40deg) translateY(-50%);
+  transform: rotate(40deg) translateY(-50%)
+}
+
+.selector li:hover {
+  color: #aaa
+}
+
+.selector li .total {
+  position: absolute;
+  right: 0;
+  color: #d7d7d7
+}
+
+.selector .price-slider {
+  text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  position: relative;
+  padding-top: 17px
+}
+
+@media (min-width: 768px) {
+  .selector .price-slider {
+      padding-top:8px
+  }
+}
+
+.selector .price-slider:before {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  margin-top: 0;
+  color: #39c9a9;
+  content: attr(data-currency);
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%)
+}
+
+.selector #slider-range {
+  width: 90%;
+  margin-bottom: 30px;
+  border: none;
+  background: #e2f7f2;
+  height: 3px;
+  margin-left: 8px;
+  margin-right: 8px
+}
+
+@media (min-width: 768px) {
+   .selector #slider-range {
+      width:100%
+  }
+}
+
+.selector .ui-slider-handle {
+  border-radius: 50%;
+  background-color: #39c9a9;
+  border: none;
+  top: -14px;
+  width: 28px;
+  height: 28px;
+  outline: none
+}
+
+@media (min-width: 768px) {
+  .selector .ui-slider-handle {
+      top:-7px;
+      width: 16px;
+      height: 16px
+  }
+}
+
+.selector .ui-slider-range {
+  background-color: #d7d7d7
+}
+
+.selector .slider-price {
+  position: relative;
+  display: inline-block;
+  padding: 5px 40px;
+  width: 40%;
+  background-color: #e2f7f2;
+  line-height: 28px;
+  text-align: center
+}
+
+.selector .slider-price:before {
+  position: absolute;
+  top: 50%;
+  left: 13px;
+  margin-top: 0;
+  color: #39c9a9;
+  content: attr(data-currency);
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%)
+}
+
+.selector .show-all {
+  position: relative;
+  padding-left: 25px;
+  color: #39c9a9;
+  cursor: pointer;
+  line-height: 28px
+}
+
+.selector .show-all:after, .selector .show-all:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 4px;
+  margin-top: -1px;
+  color: #39c9a9;
+  width: 10px;
+  border-bottom: 1px solid
+}
+
+.selector .show-all:after {
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg)
+}
+
+.selector.open ul {
+  max-height: none
+}
+
+.selector.open .show-all:after {
+  display: none
+}
+
+
+* {
+  -webkit-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.container {
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.dropdown-submenu {
+  position:relative;
+}
+.dropdown-submenu .dropdown-menu {
+  top:0;
+  left:100%;
+}
+.dropdown:hover .dropdown-content {display: block;}
+
+
+
+}

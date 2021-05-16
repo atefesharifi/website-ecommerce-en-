@@ -1,0 +1,162 @@
+<div class="container">
+    <div class="row">
+        <div class="col-10">
+            <h1>{{product.name}}</h1>
+            <h4>rate:{{product.average}}</h4><br>
+            <img style="width: 250px" src="{{product.image_url}}" alt=""><br>
+            <p>{{product.information|safe}}</p>
+
+
+            {% for img in images %}
+                <img src="{{ img.image.url }}" style="width: 250px;height: 200px;" alt="">
+            {% endfor %}
+
+            {% if is_favourite %}
+                <a href="{% url 'home:favourite' product.id %}"><i class="fas fa-heart" style="color:red; font-size: 24px "></i></a>
+            {% else %}
+                <a href="{% url 'home:favourite' product.id %}"><i class="far fa-heart" style="font-size: 24px "></i></a>
+            {% endif %}
+        </div>
+
+        <div class="col-2 mt-3">
+            <div class="row">
+                <h3>like: {{product.total_like}}</h3>
+                {% if request.user.is_authenticated %}
+                    <a href="{% url 'home:product_like' product.id %}" class="btn btn-info {% if is_unlike %} disabled {% endif %}">like</a><br><br>
+
+                    <h3>unlike: {{product.total_unlike}}</h3>
+                    <a href="{% url 'home:product_unlike' product.id %}" class="btn btn-primary {% if is_like %} disabled {% endif %}">dislike</a><br><br>
+                {% endif %}
+            </div>
+        </div>
+
+
+{% if product.status == 'Size' %}
+    <form action="" method="POST">
+        {% csrf_token %}
+        {% for data in variant %}
+            <input type="radio" value="{{data.id}}" {% if variants.id == data.id %} checked {% endif %} name="select" onchange="this.form.submit();">
+            <a href="" style="text-decoration: none;">{{data.size_variant}}</a>
+        {% endfor %}
+    </form>
+{% elif product.status == 'Color' %}
+    <form action="" method="POST">
+        {% csrf_token %}
+        {% for data in variant %}
+            <input type="radio" value="{{data.id}}" {% if variants.id == data.id %} checked {% endif %} name="select" onchange="this.form.submit();">
+            <a href="" style="text-decoration: none;">{{data.color_variant}}</a>
+        {% endfor %}
+    </form>
+
+{% endif %}
+<hr>
+<!-- {% for tag in similar%}
+    <a href="{% url 'home:detail' tag.id %}">
+        <img style="width: 200px;height: 200px" src="{{tag.image.url}}}" alt="">
+    </a>
+{% endfor %} -->
+<div class="card bg-danger m-2">
+    <h4>your choice price: {{variants.total_price}}</h4>
+</div>
+<div class="card">
+    {% if product.status != 'None' %}
+    <form method="POST" action="">
+        {% csrf_token %}
+        {{ cart_form }}
+        <button type="submit">Add</button>
+    </form>
+    {% else %}
+    <form method="POST" action="{% url 'cart:add_cart' product.id %}">
+        {% csrf_token %}
+        <input type="number" name="quantity" min="1" value="1" max="{{ product.amount }}" required oninvalid="setCustomValidity(باید تعداد حداکثر {{ product.amount }} باشد)">
+        <button type="submit">Add</button>
+    </form>
+    {% endif %}
+</div>
+<hr>
+
+<div class="row comment">
+    <div class="col-8">
+        {% if user.is_authenticated %}
+            <form method="POST" action="{% url 'home:product_comment' product.id %}">
+                {% csrf_token %}
+                <div class="card">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="comment-box">
+                                <h4>Add Comment</h4>
+                                <div class="rating">
+                                    <input type="radio" name="rate" value="5" id="5"><label for="5">&star;</label>
+                                    <input type="radio" name="rate" value="4" id="4"><label for="4">&star;</label>
+                                    <input type="radio" name="rate" value="3" id="3"><label for="3">&star;</label>
+                                    <input type="radio" name="rate" value="2" id="2"><label for="2">&star;</label>
+                                    <input type="radio" name="rate" value="1" id="1"><label for="1">&star;</label>
+                                </div>
+                                <div class="comment-area">
+                                    <textarea name="comment" placeholder="comment ..." class="form-control" id="comment" rows="4" required oninvalid="setCustomValidity('لطفا نظر خود را درج کنید.')"></textarea>
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-danger m-2">Send Comment</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        {% endif %}
+       
+    </div>
+</div>
+
+{% for com in comment %}
+    <div class="card bg-dark text-white mb-2">
+        <div class="row">
+            <div class="col-8">
+                <p>{{ com.user.username }}</p>
+            </div>
+            <div class="col-4">
+                <div class="comment-rating">
+                    <i class="fa fa-star{% if com.rate < 1 %}-o empty {% endif %}"></i>   
+                    <i class="fa fa-star{% if com.rate < 2 %}-o empty {% endif %}"></i>   
+                    <i class="fa fa-star{% if com.rate < 3 %}-o empty {% endif %}"></i>   
+                    <i class="fa fa-star{% if com.rate < 4 %}-o empty {% endif %}"></i>   
+                    <i class="fa fa-star{% if com.rate < 5 %}-o empty {% endif %}"></i> 
+                </div>  
+            </div>
+        </div>
+        <div class="row p-3">
+            <p>{{ com.comment }}</p>
+        </div>
+
+        <div class="row">
+            <div class="p-2 m-2">
+                {% if user.is_authenticated %}
+                    <a href="{% url 'home:comment_like' com.id %}" class="like m-2 cursor">
+                        <i class="fa fa-thumbs-o-up"></i>
+                        <span>Like</span>&nbsp; {{com.total_like_comment}}
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+
+
+    </div>
+    {% for com in comment %}
+    <p>{{ com.comment }}</p><br>
+    <small>{{ com.rate }}</small>
+    {% endfor %}
+<hr>
+<form method="POST" action="{% url 'home:product_reply' product.id com.id %}">
+    {% csrf_token %}
+    <textarea name="comment" id="comment" placeholder="reply ..." class="form-control" rows="4"></textarea>
+    <div class="mt-2">
+        <button type="submit" class="btn btn-info">Send Reply</button>
+    </div>
+</form>
+{% for data in com.comment_reply.all %}
+    <p>{{ data.comment }}</p>
+{% endfor %}
+{% endfor %}
+
+</div>

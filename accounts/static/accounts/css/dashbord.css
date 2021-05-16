@@ -1,0 +1,101 @@
+.side-menu{
+    margin-top:20px;
+    background: rgb(255, 253, 253);
+    width: 250px;
+    height: 500px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.side-menu a {
+    list-style: none;
+    text-decoration: none;
+    display: block;
+    color: rgb(7, 7, 7);
+    line-height: 50px;
+    margin-left: 10px;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.side-menu a:hover {
+    /* background: rgb(20, 36, 36); */
+    color: rgb(106, 148, 224);
+}
+.image-container {
+    display: flex;
+    justify-content: center;
+}
+.image-container img {
+    width: 120px;
+    border-radius: 50%;
+    margin-top: 30px;
+    border: 3px solid white;
+}
+.slide-menu center h1 {
+    color: white;
+}
+.data {
+    margin-top: 2%;
+}
+.card-body {
+    height: 100%;
+    position: top;
+    padding: 50px;
+    width: 70%;
+}
+.card-body h6 {
+    font-size: 20px;
+    line-height: 40px;
+}
+.profile{
+    margin-top: 2%;
+    background-color: floralwhite;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+* {
+    box-sizing: border-box;
+  }
+  
+  .row {
+    margin-left:-5px;
+    margin-right:-5px;
+  }
+    
+  .column {
+    float: left;
+    width: 50%;
+    height: 30px;
+    padding: 5px;
+  }
+  
+  /* Clearfix (clear floats) */
+  .row::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+  
+  .table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #ddd;
+  }
+  .table table-striped{
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #ddd;  
+  }
+  
+  .th, td {
+    text-align: left;
+    padding: 16px;
+    height: 100px;
+    line-height: 40px;
+  }
+  
+  .tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+ 

@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'accounts/css/dashbord.css' %}">
+{% endblock css %}
+{% block title%} {{ profile.user.username }} {% endblock title%} 
+
+{% block body%}
+<div class="container-fluid">
+    <div class="row">
+
+        <div class="col-2">
+            <div class="side-menu">
+                <div class="image-container">
+                    <a href="{% url 'accounts:profile' %}">
+                    <img src="{{user.profile.profile_image_url}}"  alt="" >
+                    </a>
+                </div>
+                <h4>&nbsp;{{profile.user.username}}</h4>
+                <hr>
+                <a href="{% url 'accounts:update' %}"><i class="fa fa-edit" style="font-size:24px"></i>&nbsp;Update</a>
+                <a href="{% url 'accounts:change' %}"><i class="fa fa-key" style="font-size:20px"></i>&nbsp;Change Password</a>
+                <a href="{% url 'accounts:history' %}"><i class="fa fa-history" style="font-size:24px"></i>&nbsp;history</a>
+                <a href="{% url 'accounts:favourite' %}"><i class="fa fa-heart" style="font-size:24px"></i>&nbsp;favourite</a>
+             </div>
+        </div>
+
+        <div class="col-8">
+            <div class="profile">
+
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                        <th scope="col"></th>
+                        <th scope="col" style="width:150px;">image</th>
+                        <th scope="col" style="width:200px;">product</th>
+                        <th scope="col">size</th>
+                        <th scope="col">color</th>
+                        <!-- <th scope="col">price</th>                                             -->
+                        <th scope="col" style="width:150px;">total price</th>
+                        <th scope="col">address</th>
+                        <th scope="col" style="width:200px;">paid status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in data %}
+                            <tr>
+                                <th scope="row">{{ forloop.counter }}</th>
+                                <td><img src="{{i.product.image_url}}" style="width: 50px;height: 50px;" alt=""></td>
+                                <td>{{ i.product.name }}</td>
+                                <td>{{ i.variant.size_variant.name }}</td>
+                                <td>{{ i.variant.color_variant.name }}</td>
+                                <!-- <td>
+                                    {% if i.product.status != 'None' %}
+                                        {{ i.variant.total_price }}
+                                    {% else %}
+                                        {{ i.product.total_price }}
+                                    {% endif %}
+                                </td> -->
+                                <td>
+                                    {% if i.product.status != 'None' %}
+                                        {% widthratio i.variant.total_price 1 i.quantity %}
+                                    {% else %}
+                                        {% widthratio i.product.total_price 1 i.quantity %}
+                                    {% endif %}
+                                </td>
+                                <td>{{ i.order.address }}</td>
+                                <td>
+                                    {% if i.order.paid == True %}
+                                    <p>پرداخت شد</p>
+                                    {% else %}
+                                    <p>پرداخت نشد</p>
+                                    {% endif %}
+                                </td>
+                                
+                            </tr>
+                        {% endfor %}
+        
+                    </tbody>
+                </table>
+
+
+                <!-- <div class="card mt-3 p-5">
+                    {% for i in data %}
+                        <h2>name :{{ i.product.name }} &nbsp; price: {{i.order.get_price}}</h2>
+                        <img src="{{i.product.image_url}}" style="width: 200px;height: 200px;" alt="">
+                        <h3>address: {{ i.order.address }}</h3>
+                        {% if i.order.paid == True %}
+                        <p>پرداخت شد.</p>
+                        {% else %}
+                        <p>پرداخت نشد.</p>
+                        {% endif %}
+            
+                        <hr>
+                    {% endfor %}
+                </div> -->
+                    
+            </div>
+        </div>
+
+    </div>
+</div>
+           
+{% endblock body%}
+

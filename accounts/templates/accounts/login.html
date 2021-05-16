@@ -1,0 +1,54 @@
+<html>
+    {% load static %} 
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="{% static 'accounts/css/register.css'%}">
+
+    <body>
+        <div id="login">
+            <div class="container">
+                <div id="login-row" class="row justify-content-center align-items-center">
+                    <div id="login-column" class="col-md-6">
+                        <div id="login-box" class="col-md-12">
+                            <form id="login-form" class="form" action="" method="post">
+                                {% csrf_token %}
+                                <h3 class="text-center text-info">Login</h3>
+                                <br>
+                                <div class="form-group">
+                                    <label for="user" class="">Username</label><br>
+                                    <input type="text" name="user" id="user" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="password" class="">Password</label><br>
+                                    <input type="password" name="password" autocomplete="off" id="myInput" class="form-control" value="" >
+                                    <span toggle="#password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="remember" class="text-info"><span>Remember me</span> <span><input id="remember" name="remember" type="checkbox"></span></label><br>
+                                    <input type="submit" name="submit" class="btn btn-info btn-md" value="submit">
+                                </div>
+                                <div id="register-link" class="text-right">
+                                    <a href="{% url 'accounts:register' %}" class="text-info">Register here</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>   
+    
+</html>
+
+<!-- simple login form -->
+    <!-- <form action="" method="POST">
+        {% csrf_token%}
+       
+        <input type="text" name="user" placeholder="plz enter user"><br><br>
+        <input type="password" name="password" placeholder="plz enter password"><br><br>
+
+        <button type="submit">login</button>
+        <a href="" type="رمز عبور خود را فراموش کرده اید؟"></a>
+        
+    </form> -->

@@ -1,0 +1,219 @@
+{% extends 'base.html' %}
+{% load thumbnail %}
+{% load humanize %}
+{% load static %}
+
+{% block script %}
+    <script src="{% static 'home/js/product.js' %}"></script>
+{% endblock %}
+
+{% block css%} 
+    <link rel="stylesheet" href="{% static 'home/css/product.css' %}">
+{% endblock css%} 
+
+{% block title%} {% endblock title%} 
+
+{% block body%}
+<div class="container-fluid">
+<br>
+
+    <!-- category og product that we remove this section from product page -->
+    <!-- {% for data in category %}
+            <a href="{{data.get_absolute_url}}">{{data.name}}
+            </a>
+            <div class="btn-group">
+                <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                </button>
+                <div class="dropdown-menu">
+                    {% for info in data.sub.all %}
+                        <a class="dropdown-item" href="{{info.get_absolute_url}}">{{info.name}}</a> 
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %} -->
+
+    <div class="row mt=4">
+
+        <div class="col-2">
+            <div data-role="page">
+                <div data-role="header">
+                </div>
+                <br>
+                <br>
+                <br>
+                <div class="" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); padding: 30px;">
+                <form action="" id="search-form">
+                  
+                    <!-- this line for multi range -->                   
+                    <!-- <label for="">price:
+                        <div class="multi-range" data-lbound='10' data-ubound="50">
+                            <input type="range" name="price_1" min='{{min_price}}' max='{{max_price}}' step="5" value="50" value="{{ min_price}}" oninput="this.parentNode.dataset.lbound=this.value;" />
+                            
+                            <input type="range" name="price_2" min='{{min_price}}' max='{{max_price}}' step="5" value="50" value="{{ max_price}}" oninput="this.parentNode.dataset.ubound=this.value;" />
+                        </div>
+                    </label> -->
+                    <!-- multi range end -->
+                    <!-- <hr> -->
+                       
+                    <label for="">brand:
+                        {{filter.form.brand}}
+                    </label>
+                    <hr>
+                    <label for="">size:
+                        {{filter.form.size}}
+                    </label>
+                    <hr>
+                    <label for="">color:
+                        {{filter.form.color}}
+                    </label>
+                    <br>
+                    <div style="display: none;">
+                        {{filter.form.price}}
+                        {{filter.form.favourite}}
+                        {{filter.form.discount}}
+                        {{filter.form.create}}
+                        {{filter.form.sell}}
+                        {% if 'search' in request.GET %}
+                            {{ s_form }}
+                        {% endif %}
+                    </div>                   
+                    <button type="submit" class="btn btn-outline-primary">Filter</button>
+                    <br>
+                    <br>
+                </form>
+            </div>
+        </div> 
+    </div>
+
+    <div class="col-10" >
+        <div class="container-fluid">
+            <div class="row justify-content-center"  >
+                               
+                <form action="">           
+                    <input class="border-0 dot" type="submit" name="price" value="گران ترین">
+                    &#8226;&emsp;&emsp;<input class="border-0" type="submit" name="price" value="ارزان ترین">
+                    &#8226;&emsp;&emsp;<input class="border-0" type="submit" name="create" value="جدیدترین">
+                    &#8226;&emsp;&emsp;<input class="border-0" type="submit" name="discount" value="بیشترین تخفیف">
+                    &#8226;&emsp;&emsp;<input class="border-0" type="submit" name="sell" value=" پر فروش ترین ">
+                    &#8226;&emsp;&emsp;<input class="border-0" type="submit" name="favourite" value="محبوب ترین">
+                    &#8226;&emsp;&emsp;
+                    <div style="display: none;">
+                        {{filter.form.brand}}
+                        {{filter.form.size}}
+                        {{filter.form.color}}
+                        {{filter.form.price_1}}
+                        {{filter.form.price_2}}
+                        {% if 'search' in request.GET %}
+                        {{ s_form }}
+                        {% endif %}
+                    </div>               
+                </form>
+            
+                <!--Dropdown primary-->
+                <div class="dropdown " style="list-style: none;" >                           
+                    <button class="" href="#" id="" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false" style="background-color: transparent; border: transparent; -moz-appearance:none; ">
+                    دسته بندی
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="Dropdown">
+                        {% for cat in category %}
+                            <li class="dropdown-submenu dropleft">
+                                <a class="dropdown-item dropdown-toggle " href="{{cat.get_absolute_url}}">{{ cat.name }}</a>
+                                <ul class="dropdown-menu ">                                    
+                                    {% for info in cat.sub.all %}
+                                        <li><a class="dropdown-item"
+                                            href="{{info.get_absolute_url}}">{{ info.name }}</a>
+                                        </li>
+                                    {% endfor %}                                    
+                                </ul>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <!-- Dropdown primary -->
+                &#8226;&emsp;&emsp;
+                <div class="div">
+                    <a href="{% url 'home:product' %}">
+                        <button type="button" style="background-color: transparent;border: transparent;"> همه محصولات</button>
+                    </a>
+                </div>
+                &#8226;&emsp;&emsp;
+
+            </div>
+        </div>
+        <br>
+        
+        <div class="row" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); margin: 20px; padding: 30px;">    
+            {% for product in products %}
+                <div class="col-md-3 col-sm-6">
+                    <div class="product-grid">
+                        <div class="product-image">
+                            <a href="#">
+                                <img class="pic-1" src="{{ product.image_url }}" style="width: 250px; height: 300px;">
+                            </a>
+                            <ul class="social">
+                                <li>
+                                    <a href="{% url 'home:detail' product.id %}" data-tip="Quick View"><i class="fa fa-search"></i></a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'home:favourite' product.id %}" data-tip="Add to Wishlist"><i class="fa fa-heart"></i></a>
+                                </li>
+                                <!-- <li><a href="{% url 'cart:add_cart' product.id %}" data-tip="Cart"><i class="fa fa-shopping-cart"></i></a></li> -->
+                            </ul>
+                            {% if product.discount %}
+                                <span class="product-discount-label" style="background-color: rgb(30, 183, 210);">%{{product.discount}}</span>
+                            {% endif %}
+                        </div>
+                        <!-- <ul class="rating">
+                            <li class="fa fa-star"></li>
+                            <li class="fa fa-star"></li>
+                            <li class="fa fa-star"></li>
+                            <li class="fa fa-star"></li>
+                            <li class="fa fa-star disable"></li>
+                        </ul> -->
+                        <div class="product-content">
+                            <h2 class="title"><a href="#">{{product.name}}</a></h2>
+                            <div class="price"> تومان {{ product.unit_price| intcomma}}</div>
+                            <br>
+                        </div>
+                    </div>
+                </div>                    
+            {% endfor %}                    
+        </div>
+        <!-- </div> -->
+        <br>
+
+        <div class="container">
+            <nav aria-label="Page navigation example" >
+                <ul class="pagination">
+                    {% if products.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ products.previous_page_number }}&{{data}}">&#8592; Previous</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ products.previous_page_number }}&{{data}}">{{products.previous_page_number}}</a>
+                        </li>
+                    {% endif %}
+        
+                    <li class="page-item {% if page_num == page_num %} active {% endif %}">
+                        <a class="page-link" href="?page={{ products.number }}&{{data}}">{{ products.number }}</a>
+                    </li>
+        
+                    {% if products.has_next %}
+                        <li class="page-item ">
+                            <a class="page-link" href="?page={{ products.next_page_number }}&{{data}}">{{ products.next_page_number }}</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ products.next_page_number }}&{{data}}">Next &#8594;</a>
+                        </li>
+                    {% endif %}                   
+                </ul>
+            </nav>
+        </div>
+
+        <br>
+
+    </div>        
+</div>
+
+{% endblock body%}
