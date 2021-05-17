@@ -8,22 +8,22 @@
 
 {% block body%}
 <div class="container-fluid">
-    <div class="row">
+    <div class="row" style="text-align: right;">
 
         <div class="col-2">
-            <div class="side-menu">
+            <div class="side-menu" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);padding: 10px;margin: 10px;border: 5px;">
                 <div class="image-container">
                     <a href="{% url 'accounts:profile' %}">
                     <img src="{{user.profile.profile_image_url}}"  alt="" >
                     </a>
                 </div>
-                <h4>&nbsp;{{profile.user.username}}</h4>
+                <h4 style="text-align: center;">&nbsp;{{profile.user.username}}</h4>
                 <hr>
-                <a href="{% url 'accounts:update' %}"><i class="fa fa-edit" style="font-size:24px"></i>&nbsp;Update</a>
-                <a href="{% url 'accounts:change' %}"><i class="fa fa-key" style="font-size:20px"></i>&nbsp;Change Password</a>
-                <a href="{% url 'accounts:history' %}"><i class="fa fa-history" style="font-size:24px"></i>&nbsp;history</a>
-                <a href="{% url 'accounts:favourite' %}"><i class="fa fa-heart" style="font-size:24px"></i>&nbsp;favourite</a>
-            </div>
+                <a href="{% url 'accounts:update' %}"><i class="fa fa-edit" style="font-size:20px;color: rgba(134, 138, 138, 0.877);"></i>&nbsp;بروزرسانی </a>
+                <a href="{% url 'accounts:change' %}"><i class="fa fa-key" style="font-size:20px;color: rgba(134, 138, 138, 0.877);"></i>&nbsp;تغییر رمز عبور</a>
+                <a href="{% url 'accounts:history' %}"><i class="fa fa-history" style="font-size:20px;color: rgba(134, 138, 138, 0.877);"></i>&nbsp;تاریخچه</a>
+                <a href="{% url 'accounts:favourite' %}"><i class="fa fa-heart" style="font-size:20px;color: rgba(134, 138, 138, 0.877);"></i>&nbsp;علاقه مندی ها</a>
+             </div>
         </div>
 
         <div class="col-8">
@@ -34,7 +34,7 @@
                             {% csrf_token %}
                             {{user_form.as_p}}
                             {{profile_form.as_p}}
-                        <button type="submit" class="btn btn-info btn-md" style="width: 300px;">Update</button>
+                        <button type="submit" class="btn btn-info btn-md" style="width: 300px;">بروزرسانی</button>
                     
                         </form>
                     </h6>    

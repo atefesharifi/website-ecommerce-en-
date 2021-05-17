@@ -27,7 +27,7 @@
                 </div>
             </div>
             <div class="card mt-2">
-                <h6>Reviews</h6>
+                <h6 style="text-align: right;">نظرات در مورد محصول</h6>
                 <div class="d-flex flex-row">
                     <div class="stars"> 
                         <i class="fa fa-star"></i>  
@@ -37,13 +37,13 @@
                 <hr>
                 <div class="badges">
                     {% if user.is_authenticated %}
-                        <form method="POST" action="{% url 'home:product_comment' product.id %}">
+                        <form method="POST" action="{% url 'home:product_comment' product.id %}" style="text-align: right;">
                             {% csrf_token %}
                             <div class="card">
                                 <div class="row">
                                     <div class="col-11">
                                         <div class="comment-box">
-                                            <h4>Add Comment</h4>
+                                            <h4>امتیاز و دیدگاه کاربران</h4>
                                             <div class="rating">
                                                 <input type="radio" name="rate" value="5" id="5"><label for="5">&star;</label>
                                                 <input type="radio" name="rate" value="4" id="4"><label for="4">&star;</label>
@@ -53,12 +53,12 @@
                                             </div>
                                         </div>
                                             <div class="comment-area">
-                                                <textarea name="comment" placeholder="comment ..." class="form-control" id="comment" rows="4" required oninvalid="setCustomValidity('لطفا نظر خود را درج کنید.')"></textarea>
+                                                <textarea name="comment" placeholder="دیدگاه ..." class="form-control" id="comment" rows="4" required oninvalid="setCustomValidity('لطفا نظر خود را درج کنید.')"></textarea>
                                             </div>
                                     </div>
                                  </div>
                                             <div class="text-center">
-                                                <button type="submit" class="btn btn-primary m-2">Send Comment</button>
+                                                <button type="submit" class="btn btn-primary m-2">ارسال دیدگاه</button>
                                             </div>
                             </div>
                         </form>
@@ -89,7 +89,7 @@
                             {% if user.is_authenticated %}
                                 <a href="{% url 'home:comment_like' com.id %}" class="like m-2 cursor">
                                     <i class="fa fa-thumbs-o-up">
-                                    <span>Like</span>&nbsp &nbsp {{com.total_comment_like}}
+                                    <span style="text-align: left;">Like</span>&nbsp &nbsp {{com.total_comment_like}}
                                     </i>
                                 </a>
                             {% endif %}
@@ -98,9 +98,9 @@
             
             <form method="POST" action="{% url 'home:product_reply' product.id com.id %}">
                 {% csrf_token %}
-                <textarea name="comment" id="comment" placeholder="reply ..." class="form-control" rows="4"></textarea>
+                <textarea name="comment" id="comment" placeholder="پاسخ ..." class="form-control" rows="4"></textarea>
                 <div class="mt-2">
-                    <button type="submit" class="btn btn-info">Send Reply</button>
+                    <button type="submit" class="btn btn-info">ارسال پاسخ</button>
                 </div>
             </form>
             {% for data in com.comment_reply.all %}
@@ -114,20 +114,22 @@
             </div>
         </div>
         <div class="col-md-7">
-            <div class="card">
-                <div class="about">
-                    <span class="font-weight-bold">{{product.name}} </span><br><br>
+            <div class="card" dir="rtl">
+                <div class="about" style="text-align: right;">
+                    <span class="font-weight-bold" style="text-align: right;">{{product.name}} </span><br><br>
 
                     {% if product.status == 'Both' %}
-                        <form action="" method="POST">
+                        <form action="" method="POST" style="text-align: right;">
                             {% csrf_token %}
+                            انتخاب سایز :<br>
                             {% for data in size %}
                                 <input type="radio" value="{{data.id}}" {% if variants.id == data.id %} checked {% endif %} name="select" onchange="this.form.submit();">
                                 <a href="" style="text-decoration: none;">{{data.size_variant}}</a>
                             {% endfor %}
                         </form><br>
-                        <form action="" method="POST">
+                        <form action="" method="POST" style="text-align: right;">
                             {% csrf_token %}
+                            انتخاب رنگ :<br>
                             {% for data in colors %}
                                 <input type="radio" value="{{data.id}}" {% if variants.id == data.id %}checked{% endif %} name="select" onchange="this.form.submit();">
                                 <a href="" style="text-decoration: none;">{{data.color_variant}}</a>
@@ -136,16 +138,18 @@
 
 
                         {% elif product.status == 'Size' %}
-                            <form action="" method="POST">
+                            <form action="" method="POST" style="text-align: right;">
                                 {% csrf_token %}
+                                انتخاب سایز :<br>
                                 {% for data in variant %}
                                     <input type="radio" value="{{data.id}}" {% if variants.id == data.id %}checked{% endif %} name="select" onchange="this.form.submit();">
                                     <a href="" style="text-decoration: none;">{{data.size_variant}}</a>
                                 {% endfor %}
                             </form>
                         {% elif product.status == 'Color' %}
-                            <form action="" method="POST">
+                            <form action="" method="POST" style="text-align: right;">
                                 {% csrf_token %}
+                            انتخاب رنگ :<br>
                                 {% for data in variant %}
                                     <input type="radio" value="{{data.id}}" {% if variants.id == data.id %}checked{% endif %} name="select" onchange="this.form.submit();">
                                     <a href="" style="text-decoration: none;">{{data.color_variant}}</a>
@@ -160,32 +164,34 @@
                     
                     <div class="card">    
                         {% if product.status != 'None' %}
-                        <h4 class="font-weight-bold">{{variants.total_price| intcomma}}</h4>
+                        <h4 class="font-weight-bold"> قیمت : {{variants.total_price| intcomma}} تومان</h4>
                         <hr>
 
-                        <form method="POST" action="{% url 'cart:add_cart' product.id %}">
+                        <form method="POST" action="{% url 'cart:add_cart' product.id %}" style="text-align: right;">
                             {% csrf_token %}
                             <input type="hidden" name="select" value="{{variants.id}}">
-                            <input type="number" name="quantity" min="1" value="1" max="{{ variants.amount }}" required oninvalid="setCustomValidity( 'shoud max={{ variants.amount }}')">
-                            <button  type="submit">Add</button>
+                            <input type="number" name="quantity" min="1" value="1" max="{{ variants.amount }}" style="border-color: #ff7676;border-radius: 7px;" required oninvalid="setCustomValidity( 'should max={{ variants.amount }}')">
+                            <div class="buttons">
+                                <button type="submit" class="btn btn-outline-warning btn-long cart">اضافه به سبد خرید</button> 
+                                <!-- <button class="btn btn-warning btn-long buy">Buy it Now</button>  -->
+                                <button class="btn btn-light wishlist" href="{% url 'home:favourite' product.id %}"> <i class="fa fa-heart"></i> </button>
+                           </div>
                         </form>
                         {% else %}
-                        <h4 class="font-weight-bold">{{product.total_price| intcomma}}</h4>
+                        <h4 class="font-weight-bold"> قیمت : {{product.total_price| intcomma}} تومان</h4>
                         <hr>
                         <form method="POST" action="{% url 'cart:add_cart' product.id %}">
                             {% csrf_token %}
-                            <input type="number" name="quantity" min="1" value="1" max="{{ product.amount }}" required oninvalid="setCustomValidity( 'shoud max={{ product.amount }}')">
-                            <button  type="submit">Add</button>
+                            <input type="number" name="quantity" min="1" value="1" max="{{ product.amount }}" style="border-color: #ff7676;border-radius: 7px;" required oninvalid="setCustomValidity( 'shoud max={{ product.amount }}')">
+                            <div class="buttons">
+                                <button type="submit" class="btn btn-outline-warning btn-long cart">اضافه به سبد خرید</button> 
+                                <button class="btn btn-light wishlist" href="{% url 'home:favourite' product.id %}"> <i class="fa fa-heart"></i> </button>
+                           </div>
                         </form>
                         {% endif %}
-                    
-                </div>
-                <div class="buttons">
-                     <!-- <button class="btn btn-outline-warning btn-long cart">Add to Cart</button>  -->
-                     <!-- <button class="btn btn-warning btn-long buy">Buy it Now</button>  -->
-                     <button class="btn btn-light wishlist"> <i class="fa fa-heart"></i> </button>
-                </div>
+    
                 <hr>
+            
                 
                 </div>
             </div>
@@ -211,29 +217,35 @@
 </div>
 
 
-<div class="container-fluid">
-    <!-- Swiper1 -->
-    <div class="swiper-container slider1">
-    <div class="swiper-wrapper">
-      {% for i in similar %}
-        <div class="swiper-slide">
-        <div class="card" style="width: 23rem;">
-            <img src="{{i.image_url}}" style="height: 250px;width: 250px;" class="card-img-top" alt="...">
-            <div class="card-body">
-            <h5 class="card-title">{{ i.name }}</h5>
-            <a href="{% url 'home:detail' i.id %}" class="btn btn-primary">Product detail</a>
+<div class="container-fluid" dir="rtl">
+    <h3 style="text-align: right;">جدیدترین محصولات</h3>
+    <hr>
+  <!-- Swiper1 -->
+    <div class="swiper-container slider1" >
+  
+      <div class="swiper-wrapper" >
+        {% for i in create %}
+          <div class="swiper-slide"   >
+            <div class="card" style="width: 23rem;text-align: center;">
+              <img src="{{i.image_url}}" style="height: 250px;width: 250px;" class="card-img-top" alt="..." style="text-align: center;">
+              <div class="card-body">
+                <h5 class="card-title">{{ i.name }}</h5>
+                <a href="{% url 'home:detail' i.id %}" class="btn btn-primary">مشاهده جزئیات محصول</a>
+              </div>
             </div>
-        </div>
-        </div>
-       
-      {% endfor %}
-      
+          </div>
+        {% endfor %}
+      </div>
+      <!-- Add Pagination -->
+      <br>
+      <br>
+      <div class="swiper-pagination">
+      </div>
+  
     </div>
-    <!-- Add Pagination -->
-    <br>
-    <br>
-    <div class="swiper-pagination"></div>
-    </div>
+  </div>
+  <!-- <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script> -->
+ 
  <!-- Swiper JS -->
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 </div>
@@ -249,6 +261,14 @@
         slideMargin: 0,
         thumbItem: 9
     });
+    var swiper = new Swiper('.slider1', {
+    slidesPerView: 4,
+    spaceBetween: 10,
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+  });
 </script>
 
 {% endblock body %}

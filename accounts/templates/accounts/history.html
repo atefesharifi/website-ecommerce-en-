@@ -7,21 +7,21 @@
 
 {% block body%}
 <div class="container-fluid">
-    <div class="row">
+    <div class="row" style="text-align: right;">
 
         <div class="col-2">
-            <div class="side-menu">
+            <div class="side-menu" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);padding: 10px;margin: 10px;border: 5px;">
                 <div class="image-container">
                     <a href="{% url 'accounts:profile' %}">
                     <img src="{{user.profile.profile_image_url}}"  alt="" >
                     </a>
                 </div>
-                <h4>&nbsp;{{profile.user.username}}</h4>
+                <h4 style="text-align: center;">&nbsp;{{profile.user.username}}</h4>
                 <hr>
-                <a href="{% url 'accounts:update' %}"><i class="fa fa-edit" style="font-size:24px"></i>&nbsp;Update</a>
-                <a href="{% url 'accounts:change' %}"><i class="fa fa-key" style="font-size:20px"></i>&nbsp;Change Password</a>
-                <a href="{% url 'accounts:history' %}"><i class="fa fa-history" style="font-size:24px"></i>&nbsp;history</a>
-                <a href="{% url 'accounts:favourite' %}"><i class="fa fa-heart" style="font-size:24px"></i>&nbsp;favourite</a>
+                <a href="{% url 'accounts:update' %}"><i class="fa fa-edit" style="font-size:20px;color: rgba(134, 138, 138, 0.877);"></i>&nbsp;بروزرسانی </a>
+                <a href="{% url 'accounts:change' %}"><i class="fa fa-key" style="font-size:20px;color: rgba(134, 138, 138, 0.877);"></i>&nbsp;تغییر رمز عبور</a>
+                <a href="{% url 'accounts:history' %}"><i class="fa fa-history" style="font-size:20px;color: rgba(134, 138, 138, 0.877);"></i>&nbsp;تاریخچه</a>
+                <a href="{% url 'accounts:favourite' %}"><i class="fa fa-heart" style="font-size:20px;color: rgba(134, 138, 138, 0.877);"></i>&nbsp;علاقه مندی ها</a>
              </div>
         </div>
 
@@ -29,27 +29,27 @@
             <div class="profile">
 
                 <table class="table table-striped">
-                    <thead>
+                    <thead style="text-align: right;">
                         <tr>
                         <th scope="col"></th>
-                        <th scope="col" style="width:150px;">image</th>
-                        <th scope="col" style="width:200px;">product</th>
-                        <th scope="col">size</th>
-                        <th scope="col">color</th>
+                        <th scope="col" style="width:150px;">عکس محصول</th>
+                        <th scope="col" style="width:200px;">نام محصول</th>
+                        <th scope="col">سایز</th>
+                        <th scope="col">رنگ</th>
                         <!-- <th scope="col">price</th>                                             -->
-                        <th scope="col" style="width:150px;">total price</th>
-                        <th scope="col">address</th>
-                        <th scope="col" style="width:200px;">paid status</th>
+                        <th scope="col" style="width:150px;">قیمت نهایی</th>
+                        <th scope="col" style="width:200px;">آدرس</th>
+                        <th scope="col" style="width:200px;">وضعیت پرداخت</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for i in data %}
-                            <tr>
+                            <tr style="text-align: right;">
                                 <th scope="row">{{ forloop.counter }}</th>
-                                <td><img src="{{i.product.image_url}}" style="width: 50px;height: 50px;" alt=""></td>
-                                <td>{{ i.product.name }}</td>
-                                <td>{{ i.variant.size_variant.name }}</td>
-                                <td>{{ i.variant.color_variant.name }}</td>
+                                <td style="width:150px;text-align: right;"><img src="{{i.product.image_url}}" style="width: 50px;height: 50px;" alt=""></td>
+                                <td style="text-align: right;">{{ i.product.name }}</td>
+                                <td style="text-align: right;">{{ i.variant.size_variant.name }}</td>
+                                <td style="text-align: right;">{{ i.variant.color_variant.name }}</td>
                                 <!-- <td>
                                     {% if i.product.status != 'None' %}
                                         {{ i.variant.total_price }}
@@ -57,15 +57,15 @@
                                         {{ i.product.total_price }}
                                     {% endif %}
                                 </td> -->
-                                <td>
+                                <td style="text-align: right;">
                                     {% if i.product.status != 'None' %}
                                         {% widthratio i.variant.total_price 1 i.quantity %}
                                     {% else %}
                                         {% widthratio i.product.total_price 1 i.quantity %}
                                     {% endif %}
                                 </td>
-                                <td>{{ i.order.address }}</td>
-                                <td>
+                                <td style="text-align: right;">{{ i.order.address }}</td>
+                                <td style="text-align: right;">
                                     {% if i.order.paid == True %}
                                     <p>پرداخت شد</p>
                                     {% else %}

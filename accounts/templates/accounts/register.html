@@ -15,15 +15,17 @@
 
 <body>
 
-    <form method="POST" class="form" style="size:100px;">
+    <form method="POST" class="form" style="width: 500px;">
         {% csrf_token %}
-        <h3 class="text-center text-info">Register</h3>
+        <h3 class="text-center text-info">ثبت نام</h3>
         <br>
+        <div dir="rtl">
         {{form.as_p}}
+        </div>
         <button class="btn btn-info" type="submit">ثبت نام</button>
         <br>
         <br>
-        <p class="text-center">Have an account? <a href="{% url 'accounts:login' %}">Log In</a> </p>
+        <p class="text-center"><a href="{% url 'accounts:login' %}">Log In</a>&emsp; اگر دارای حساب کاربری هستید اینجا کلیک کنید  </p>
     </form>
 
 </body>

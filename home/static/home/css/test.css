@@ -113,26 +113,18 @@ hr {
     color: #d4d4d4
 }
 
-.badge {
-    padding: 5px !important;
-    padding-bottom: 6px !important
-}
 
-.badge i {
-    font-size: 10px
-}
-
-.profile-image {
+/* .profile-image {
     width: 35px
-}
+} */
 
 .comment-ratings i {
     font-size: 13px
 }
 
-.username {
+/* .username {
     font-size: 12px
-}
+} */
 
 .comment-profile {
     line-height: 17px

@@ -74,7 +74,9 @@ def user_profile(request):
     profile = Profile.objects.get(user_id=request.user.id)
     category = Category.objects.filter(sub_cat=False)
     nums = Cart.objects.filter(user_id=request.user.id).aggregate(sum=Sum('quantity'))['sum']
-    context = {'category':category,'profile':profile,'nums':nums}
+    products = Product.objects.all()
+    create = Product.objects.all().order_by('-create')[:6]
+    context = {'category':category,'profile':profile,'nums':nums,'create':create}
     return render(request,'accounts/profile.html',context)
 
 @login_required(login_url='accounts:login')

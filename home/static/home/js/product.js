@@ -9,4 +9,4 @@ $('.dropdown-submenu>a').unbind('click').click(function(e){
     e.stopPropagation();
     e.preventDefault();
 });
-document.getElementById("search-form").submit()
+// document.getElementById("search-form").submit()

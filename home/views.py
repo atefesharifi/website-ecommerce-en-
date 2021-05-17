@@ -69,6 +69,7 @@ def product_detail(request,id):
     category = Category.objects.filter(sub_cat=False)
     nums = Cart.objects.filter(user_id=request.user.id).aggregate(sum=Sum('quantity'))['sum']
     images = Images.objects.filter(product_id=id)
+    create = Product.objects.all().order_by('-create')[:6]
     comment_form = CommentForm()
     reply_form = ReplyForm()
     cart_form = CartForm()
@@ -102,10 +103,10 @@ def product_detail(request,id):
             size = Variants.objects.raw('SELECT * FROM home_variants WHERE product_variant_id=%s GROUP BY size_variant_id', [id])
 
             
-        context = {'product':product,'category':category,'nums':nums,'variant':variant,'variants':variants,'similar':similar, 'is_like':is_like, 'is_unlike':is_unlike,'comments':comments,'comment_form':comment_form,'reply_form':reply_form,'images':images,'cart_form':cart_form,'is_favourite':is_favourite,'colors':colors,'size':size}
+        context = {'product':product,'category':category,'nums':nums,'variant':variant,'variants':variants,'similar':similar, 'is_like':is_like, 'is_unlike':is_unlike,'comments':comments,'comment_form':comment_form,'reply_form':reply_form,'images':images,'cart_form':cart_form,'is_favourite':is_favourite,'colors':colors,'size':size,'create':create}
         return render(request, 'home/detail.html',context)
     else:
-        return render(request,'home/detail.html',{'product':product,'nums':nums,'similar':similar, 'is_like':is_like,'is_unlike':is_unlike,'comments':comments,'comment_form':comment_form,'reply_form':reply_form,'images':images,'cart_form':cart_form,'is_favourite':is_favourite})
+        return render(request,'home/detail.html',{'product':product,'nums':nums,'similar':similar, 'is_like':is_like,'is_unlike':is_unlike,'comments':comments,'comment_form':comment_form,'reply_form':reply_form,'images':images,'cart_form':cart_form,'is_favourite':is_favourite,'create':create})
 
 def product_like(request,id):
     url = request.META.get('HTTP_REFERER')

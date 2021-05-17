@@ -6,15 +6,21 @@
 <!--Navbar -->
   <nav class="navbar navbar-expand-lg navbar-light bg-dark" style="height: 100px;" >
     <div class="collapse navbar-collapse" id="navbarSupportedContent-555">
-      <ul class="navbar-nav mr-auto">
 
-        <li class="nav-item active">
+      <div class="navbar-nav mr-auto" dir="rtl">
           <a class="nav-link" href="{% url 'home:home' %}">
-            <img src="/media/logo/logo.jpg" class="rounded-circle z-depth-0"
+            <img src="/media/logo/logo.png" class="rounded-circle z-depth-0"
               alt="" style="width: 60px;height:60px"> 
             <span class="sr-only">(current)</span>
           </a>
-        </li>
+          &emsp;
+          
+        <form class="form-inline float-sm-right" action="{% url 'home:product' %}">
+          {% csrf_token %}
+          <input class="form-control" style="width: 500px; height: 60px; border-radius: 7px;" type="search" placeholder="&#128269;&nbsp; جستجو..." name="search">
+          <input type="submit" style="visibility: hidden; position: absolute;" />
+            <!-- <i class="fas fa-search" style="color: rgb(12, 12, 12);"></i> -->        
+        </form>
         
          <!-- <li class="nav-item">
           <a class="nav-link" href="{% url 'home:product' %}">Products</a>
@@ -44,64 +50,57 @@
             </ul>
           </div>
         </li> -->
-      </ul>
-    </div>
+      </div>
 
-    <div class="container" style="justify-content: center;" >
-      <form class="form-inline float-sm-right" action="{% url 'home:product' %}">
-        {% csrf_token %}
-        <input class="form-control" style="width: 500px; height: 60px; border-radius: 7px;" type="search" placeholder="&#128269;&nbsp; search..." name="search">
-        <input type="submit" style="visibility: hidden; position: absolute;" />
-          <!-- <i class="fas fa-search" style="color: rgb(12, 12, 12);"></i> -->        
-      </form>
-    </div>
-  
-    <ul class="navbar-nav ml-auto nav-flex-icons">
-      <li class="nav-item" >        
+      <div class="container" style="justify-content: left;" dir="ltr">
         {% if user.is_authenticated %}
           <a class="nav-link waves-effect waves-light" href="{% url 'cart:cart_detail' %}">             
-            <i class="fas fa-shopping-basket" style="font-size: 30px;color: blanchedalmond;" ><span class='badge badge-warning' id='lblCartCount' style="font-size: 20px;"> {{nums}} </span>
+            <i class="fas fa-shopping-basket" style="font-size: 25px;color: blanchedalmond;" ><span class='badge badge-primary' id='lblCartCount' style="font-size: 20px;"> {{nums}} </span>
             </i>
           </a>
         {% else %} 
           <a class="nav-link waves-effect waves-light">
-            <i class="fas fa-shopping-basket" style="font-size: 30px;color: blanchedalmond;"></i>
+            <i class="fas fa-shopping-basket" style="font-size: 25px;color: blanchedalmond;"></i>
           </a>
         {% endif %}
-      </li>
-          
-      <li class="nav-item avatar dropdown">
-        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-55" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false" style="color: cornsilk;">
-          {% if user.is_authenticated %}
-            <img src="{{user.profile.profile_image_url}}" class="rounded-circle z-depth-0"
-                alt="" style="width: 30px;height:30px">
-                {{user.username}}          
-          {% else %}
-            <img src="/media/profile/1.jpg" class="rounded-circle z-depth-0"
-                alt="" style="width: 30px;height:30px" style="color: cornsilk;">
-                dear user             
-          {% endif %}
-        </a>
 
-        <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
-              aria-labelledby="navbarDropdownMenuLink-55">
-          <ul class="p-0" aria-labelledby="new-mdb-technologies-dropdown">          
-            {% if user.is_authenticated %}
-              <li>
-                <a class="dropdown-item" href="{% url 'accounts:profile' %}">profile</a>
-              </li>
-              <a class="dropdown-item" href="{% url 'accounts:logout' %}">logout</a>
-            {% else %}
-              <a class="dropdown-item" href="{% url 'accounts:register' %}">Register</a>
-              <!-- <a class="dropdown-item" href="" data-toggle="modal" data-target="#modelslogin">log in </a> -->
-              <a class="dropdown-item" href="{% url 'accounts:login' %}" >log in </a>
-            {% endif %}
-          </ul>
+        <!-- vertical line for seprate basket and user profile -->
+        <div style=" border-left: 3px solid rgba(160, 159, 159, 0.466);height: 50px;margin-left: 10px;top: 12px;">
         </div>
-      </li>        
-    </ul>
-   
+        <!-- end for vertical line -->
+          
+        <div class="nav-item avatar dropdown" >
+          <a class="nav-link" id="navbarDropdownMenuLink-55" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false" style="color: cornsilk;">
+            <i class="fa fa-angle-down" style="margin-top: 20px;"></i>
+            &ensp;
+            {% if user.is_authenticated %}
+              <img src="{{user.profile.profile_image_url}}" class="rounded-circle z-depth-0"
+              alt="" style="width: 30px;height:30px">                            
+            {% else %}
+ 
+              <img src="/media/profile/1.jpg" class="rounded-circle z-depth-0"
+              alt="" style="width: 30px;height:30px" style="color: cornsilk;">&ensp;                           
+            {% endif %}
+          </a>
+
+          <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
+              aria-labelledby="navbarDropdownMenuLink-55" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);text-align: right;" dir="rtl">
+            {% if user.is_authenticated %}
+              <h5 style="text-align: center;">{{user.username}}</h5>
+              <hr>              
+              <a class="dropdown-item" href="{% url 'accounts:profile' %}">مشاهده پروفایل</a>              
+              <a class="dropdown-item" href="{% url 'accounts:logout' %}">خروج</a>
+            {% else %}
+              <a class="dropdown-item" href="{% url 'accounts:register' %}"> ثبت نام </a>
+              <!-- <a class="dropdown-item" href="" data-toggle="modal" data-target="#modelslogin">log in </a> -->
+              <a class="dropdown-item" href="{% url 'accounts:login' %}" >  ورود به حساب کاربری</a>
+            {% endif %}
+          </div>
+        </div>
+
+      </div>        
+    </div>
 
   <!-- this section has for if we want use modals for login or register action -->
   <!-- modals login -->

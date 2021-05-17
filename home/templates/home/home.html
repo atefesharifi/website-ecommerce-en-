@@ -17,6 +17,7 @@
     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
     <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
     <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
   </ol>
   <!-- gallery is folder for pic of carousel  -->
   <div class="carousel-inner">
@@ -42,18 +43,20 @@
 
 <hr>
 
-<div class="container-fluid">
+<div class="container-fluid" dir="rtl">
+  <h3 style="text-align: right;">جدیدترین محصولات</h3>
+  <hr>
 <!-- Swiper1 -->
   <div class="swiper-container slider1" >
 
     <div class="swiper-wrapper" >
       {% for i in create %}
         <div class="swiper-slide"   >
-          <div class="card" style="width: 23rem;">
-            <img src="{{i.image_url}}" style="height: 250px;width: 250px;" class="card-img-top" alt="...">
+          <div class="card" style="width: 23rem;text-align: center;">
+            <img src="{{i.image_url}}" style="height: 250px;width: 250px;" class="card-img-top" alt="..." style="text-align: center;">
             <div class="card-body">
               <h5 class="card-title">{{ i.name }}</h5>
-              <a href="{% url 'home:detail' i.id %}" class="btn btn-primary">Product detail</a>
+              <a href="{% url 'home:detail' i.id %}" class="btn btn-primary">مشاهده جزئیات محصول</a>
             </div>
           </div>
         </div>
@@ -73,15 +76,17 @@
  
 <!-- Swiper2 -->
 <div class="container-fluid">
+  <h3 style="text-align: right;">شلوارهای زنانه</h3>
+  <hr>
   <div class="swiper-container slider2">
     <div class="swiper-wrapper">    
       {% for j in create2 %}
         <div class="swiper-slide">
-          <div class="card" style="width: 23rem;">
+          <div class="card" style="width: 23rem;text-align: center;">
             <img src="{{j.image_url}}" style="height: 250px;width: 250px;" class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title">{{ j.name }}</h5>
-              <a href="{% url 'home:detail' j.id %}" class="btn btn-primary">Product detail</a>
+              <a href="{% url 'home:detail' j.id %}" class="btn btn-primary">مشاهده جزئیات محصول</a>
             </div>
           </div>
         </div>

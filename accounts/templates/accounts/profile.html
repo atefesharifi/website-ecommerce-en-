@@ -11,45 +11,45 @@
 {% block body%}
 <br>
    <div class="container-fluid">
-       <div class="row">
+        <div class="row" style="text-align: right;" >
 
            <div class="col-2">
-               <div class="side-menu">
+               <div class="side-menu" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);padding: 10px;margin: 10px;border: 5px;">
                    <div class="image-container">
                        <a href="{% url 'accounts:profile' %}">
                        <img src="{{user.profile.profile_image_url}}"  alt="" >
                        </a>
                    </div>
-                   <h4>&nbsp;{{profile.user.username}}</h4>
+                   <h4 style="text-align: center;">&nbsp;{{profile.user.username}}</h4>
                    <hr>
-                   <a href="{% url 'accounts:update' %}"><i class="fa fa-edit" style="font-size:24px"></i>&nbsp;Update</a>
-                   <a href="{% url 'accounts:change' %}"><i class="fa fa-key" style="font-size:20px"></i>&nbsp;Change Password</a>
-                   <a href="{% url 'accounts:history' %}"><i class="fa fa-history" style="font-size:24px"></i>&nbsp;history</a>
-                   <a href="{% url 'accounts:favourite' %}"><i class="fa fa-heart" style="font-size:24px"></i>&nbsp;favourite</a>
+                   <a href="{% url 'accounts:update' %}"><i class="fa fa-edit" style="font-size:20px;color: rgba(134, 138, 138, 0.877);"></i>&nbsp;بروزرسانی </a>
+                   <a href="{% url 'accounts:change' %}"><i class="fa fa-key" style="font-size:20px;color: rgba(134, 138, 138, 0.877);"></i>&nbsp;تغییر رمز عبور</a>
+                   <a href="{% url 'accounts:history' %}"><i class="fa fa-history" style="font-size:20px;color: rgba(134, 138, 138, 0.877);"></i>&nbsp;تاریخچه</a>
+                   <a href="{% url 'accounts:favourite' %}"><i class="fa fa-heart" style="font-size:20px;color: rgba(134, 138, 138, 0.877);"></i>&nbsp;علاقه مندی ها</a>
                 </div>
            </div>
 
 
            <div class="col-10">
             <br>
-            <h4>personal information</h4>
+            <h4>اطلاعات شخصی</h4>
             <div class="profile">
                 <table class="table table-bordered">
-                <tbody>
+                <tbody style="text-align: right;direction: rtl;">
 
                     <tr>                        
-                        <td>user :<br> {{profile.user.username}}</td>
-                        <td>email :<br> {{profile.user.email}}</td>
+                        <td style="text-align: right">نام کاربری :<br> {{profile.user.username}}</td>
+                        <td style="text-align: right">ایمیل :<br> {{profile.user.email}}</td>
                     </tr>
 
                     <tr>                    
-                        <td>name :<br> {{profile.user.first_name}}</td> 
-                        <td>last_name :<br> {{profile.user.last_name}}</td>                     
+                        <td style="text-align: right">نام :<br> {{profile.user.first_name}}</td> 
+                        <td style="text-align: right">نام خانوادگی :<br> {{profile.user.last_name}}</td>                     
                     </tr>
 
                     <tr>                    
-                        <td>phone :<br> {{profile.phone}}</td> 
-                        <td>address :<br> {{profile.address}}</td>                     
+                        <td style="text-align: right">تلفن :<br> {{profile.phone}}</td> 
+                        <td style="text-align: right">آدرس :<br> {{profile.address}}</td>                     
                     </tr>
 
                 </tbody>
@@ -67,6 +67,37 @@
             </div>
 
         </div>
+
+        <br>
+        <!-- Swiper1 -->
+        <div class="row" style="text-align: right;" >
+            <div class="container-fluid">
+                <h3 style="text-align: right;">جدیدترین محصولات</h3>
+                <hr>
+                <div class="swiper-container slider1">
+                <div class="swiper-wrapper">    
+                    {% for j in create %}
+                    <div class="swiper-slide">
+                        <div class="card" style="width: 23rem;text-align: center;">
+                        <img src="{{j.image_url}}" style="height: 250px;width: 250px;" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ j.name }}</h5>
+                            <a href="{% url 'home:detail' j.id %}" class="btn btn-primary">مشاهده جزئیات محصول</a>
+                        </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <!-- Add Pagination -->
+                <br>
+                <br>
+                <div class="swiper-pagination">
+                </div>
+                </div>
+            </div>
+        </div>
+        <!-- end swipper1 -->
+
     </div>
    <br>
    <br>

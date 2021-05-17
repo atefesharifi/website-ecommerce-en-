@@ -4,16 +4,16 @@
 
 <div class="row">    
   <!--Grid column-->
-  <div class="col-lg-8 ">
-    <div class="card w-100" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); margin: 20px; padding: 30px;">
+  <div class="col-lg-8 " dir="rtl">
+    <div class="card w-100" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); margin: 20px; padding: 30px;text-align: right;">
       <div class="card-body">
-        <h5 class="card-title">total price: {{order.get_price}}</h5>
+        <h5 class="card-title">قیمت نهایی: {{order.get_price}} تومان </h5>
           <p class="card-text">
             <br>
             <form action="{% url 'order:coupon' order.id %}" method="POST">
               {% csrf_token %}
               {{form}}
-              <button type="submit" class="btn btn-info">Coupon</button>
+              <button type="submit" class="btn btn-info">بن خرید</button>
             </form>
             <br>
             <a href="{% url 'order:request' order.id order.get_price %}">پرداخت</a>
@@ -25,9 +25,9 @@
   </div> 
 
   <!--Grid column-->
-  <div class="col-lg-4">            
+  <!-- <div class="col-lg-4">             -->
     <!-- Card -->
-    <div class="mb-3 " style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); margin: 20px; padding: 30px;">
+    <!-- <div class="mb-3 " style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); margin: 20px; padding: 30px;">
       <div class="pt-4">
           <h5 class="mb-3">The total amount of</h5>
           <ul class="list-group list-group-flush">
@@ -50,10 +50,10 @@
               </div>
               <span><strong>{{total}}</strong></span>
             </li>
-          </ul>   
+          </ul>    -->
         <!-- <a href="{% url 'order:order_create' %}"><button type="button" class="btn btn-primary btn-block">order</button></a> -->
-      </div>
-    </div>
+      <!-- </div>
+    </div> -->
     <!-- Card -->
     <!-- Card -->
     <!-- <div class="mb-3">
@@ -78,31 +78,31 @@
   </div>
 </div>
 
-<div class="col-lg-12" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); margin: 20px; padding: 30px;">
-  <h4>order summary</h4>
+<div class="col-lg-12" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); margin: 20px; padding: 30px;text-align: right;">
+  <h4>خلاصه وضعیت سفارش</h4>
   <div class="card-group">
 
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title">quantity:</h5>
+        <h5 class="card-title">تعداد :</h5>
         <p class="card-text">{{nums}}</p>
-        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+        <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
       </div>
     </div>
 
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title">price:</h5>
+        <h5 class="card-title">قیمت :</h5>
         <p class="card-text">{{total}}</p>
-        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+        <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
       </div>
     </div>
 
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title">address:</h5>
-        <p class="card-text"></p>
-        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+        <h5 class="card-title">آدرس :</h5>
+        <p class="card-text">{{address}}</p>
+        <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
       </div>
     </div>
 

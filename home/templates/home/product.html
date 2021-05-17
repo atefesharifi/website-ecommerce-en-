@@ -54,16 +54,16 @@
                     </label> -->
                     <!-- multi range end -->
                     <!-- <hr> -->
-                       
-                    <label for="">brand:
+                      
+                    <label for="">برند :&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
                         {{filter.form.brand}}
                     </label>
                     <hr>
-                    <label for="">size:
+                    <label for="">سایز :&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
                         {{filter.form.size}}
                     </label>
                     <hr>
-                    <label for="">color:
+                    <label for="">رنک :&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
                         {{filter.form.color}}
                     </label>
                     <br>
@@ -77,7 +77,7 @@
                             {{ s_form }}
                         {% endif %}
                     </div>                   
-                    <button type="submit" class="btn btn-outline-primary">Filter</button>
+                    <button type="submit" class="btn btn-outline-primary" style="text-align: center;" >اعمال فیلتر</button>
                     <br>
                     <br>
                 </form>
@@ -88,31 +88,19 @@
     <div class="col-10" >
         <div class="container-fluid">
             <div class="row justify-content-center"  >
-                               
-                <form action="">           
-                    <input class="border-0 dot" type="submit" name="price" value="گران ترین">
-                    &#8226;&emsp;&emsp;<input class="border-0" type="submit" name="price" value="ارزان ترین">
-                    &#8226;&emsp;&emsp;<input class="border-0" type="submit" name="create" value="جدیدترین">
-                    &#8226;&emsp;&emsp;<input class="border-0" type="submit" name="discount" value="بیشترین تخفیف">
-                    &#8226;&emsp;&emsp;<input class="border-0" type="submit" name="sell" value=" پر فروش ترین ">
-                    &#8226;&emsp;&emsp;<input class="border-0" type="submit" name="favourite" value="محبوب ترین">
-                    &#8226;&emsp;&emsp;
-                    <div style="display: none;">
-                        {{filter.form.brand}}
-                        {{filter.form.size}}
-                        {{filter.form.color}}
-                        {{filter.form.price_1}}
-                        {{filter.form.price_2}}
-                        {% if 'search' in request.GET %}
-                        {{ s_form }}
-                        {% endif %}
-                    </div>               
-                </form>
-            
+
+                &#8226;
+                <div class="div">
+                    <a href="{% url 'home:product' %}">
+                        <button type="button" style="background-color: transparent;border: transparent;"> همه محصولات</button>
+                    </a>
+                </div>
+                &emsp;
+                &#8226;
                 <!--Dropdown primary-->
                 <div class="dropdown " style="list-style: none;" >                           
-                    <button class="" href="#" id="" role="button" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false" style="background-color: transparent; border: transparent; -moz-appearance:none; ">
+                    <button class="" href="#" id="" role="" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false" style="background-color: transparent; border: transparent; -moz-appearance:none; text-align: right;">
                     دسته بندی
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="Dropdown">
@@ -131,13 +119,27 @@
                     </ul>
                 </div>
                 <!-- Dropdown primary -->
-                &#8226;&emsp;&emsp;
-                <div class="div">
-                    <a href="{% url 'home:product' %}">
-                        <button type="button" style="background-color: transparent;border: transparent;"> همه محصولات</button>
-                    </a>
-                </div>
-                &#8226;&emsp;&emsp;
+                &emsp;
+                               
+                <form action="">           
+                    &#8226;<input class="border-0 dot" type="submit" name="price" value="گران ترین">&emsp;
+                    &#8226;<input class="border-0" type="submit" name="price" value="ارزان ترین">&emsp;
+                    &#8226;<input class="border-0" type="submit" name="create" value="جدیدترین">&emsp;
+                    &#8226;<input class="border-0" type="submit" name="discount" value="بیشترین تخفیف">&emsp;
+                    &#8226;<input class="border-0" type="submit" name="sell" value=" پر فروش ترین ">&emsp;
+                    &#8226;<input class="border-0" type="submit" name="favourite" value="محبوب ترین">
+                    
+                    <div style="display: none;">
+                        {{filter.form.brand}}
+                        {{filter.form.size}}
+                        {{filter.form.color}}
+                        {{filter.form.price_1}}
+                        {{filter.form.price_2}}
+                        {% if 'search' in request.GET %}
+                        {{ s_form }}
+                        {% endif %}
+                    </div>               
+                </form>
 
             </div>
         </div>
@@ -153,10 +155,10 @@
                             </a>
                             <ul class="social">
                                 <li>
-                                    <a href="{% url 'home:detail' product.id %}" data-tip="Quick View"><i class="fa fa-search"></i></a>
+                                    <a href="{% url 'home:detail' product.id %}" data-tip="جزئیات محصولات"><i class="fa fa-search"></i></a>
                                 </li>
                                 <li>
-                                    <a href="{% url 'home:favourite' product.id %}" data-tip="Add to Wishlist"><i class="fa fa-heart"></i></a>
+                                    <a href="{% url 'home:favourite' product.id %}" data-tip="اضافه به علاقه مندی ها"><i class="fa fa-heart"></i></a>
                                 </li>
                                 <!-- <li><a href="{% url 'cart:add_cart' product.id %}" data-tip="Cart"><i class="fa fa-shopping-cart"></i></a></li> -->
                             </ul>
@@ -173,7 +175,13 @@
                         </ul> -->
                         <div class="product-content">
                             <h2 class="title"><a href="#">{{product.name}}</a></h2>
-                            <div class="price"> تومان {{ product.unit_price| intcomma}}</div>
+                            {% if product.discount %}
+                                <div class="price"><s style="color: rgba(155, 153, 151, 0.616);"> {{ product.unit_price| intcomma}}</s>
+                                {{ product.total_price| intcomma}} تومان
+                                </div>
+                            {% else %}
+                                <div class="price"> {{ product.unit_price| intcomma}} تومان</div>
+                            {% endif %}
                             <br>
                         </div>
                     </div>
