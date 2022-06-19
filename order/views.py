@@ -6,7 +6,7 @@ from django.views.decorators.http import require_POST
 from django.utils import timezone
 import jdatetime
 from django.contrib import messages
-from suds import Client
+from django.test import Client
 from django.http import HttpResponse
 from django.utils.crypto import get_random_string
 from django.db.models import Sum
