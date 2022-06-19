@@ -12,7 +12,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from random import randint
-import ghasedak
+import ghasedakpack
 from django.http import HttpResponse 
 
 def user_register(request):
@@ -127,7 +127,7 @@ def phone(request):
             data = form.cleaned_data
             phone = f"0{data['phone']}"
             random_code = randint(100,1000)
-            sms = ghasedak.Ghasedak("3f269a0a1b77f8f09813f2476e8105367d612c824154b3acc221030ae5ef05f9")
+            sms = ghasedakpack.Ghasedak("3f269a0a1b77f8f09813f2476e8105367d612c824154b3acc221030ae5ef05f9")
             sms.send({'message':random_code,'receptor':phone,'linenumber':"10008566"})
             return redirect('accounts:verify')
     else:
